@@ -45,17 +45,17 @@ cp ${bd}/tor/tor.sh ${bd}/tor/tord-hidden.sh
 sed -i '2i# Runs tor and attaches to the ouput' ${bd}/tor/tor.sh
 sed -i '2i# Runs tor and attaches to the ouput' ${bd}/tor/tor-hidden.sh
 sed -i '3i# Starts a hidden service' ${bd}/tor/tor-hidden.sh
-sed -i '$i--HiddenServiceDir ${rd}/hidden-service \' ${bd}/tor/tor-hidden.sh
-sed -i '$i--HiddenServicePort 8080 \' ${bd}/tor/tor-hidden.sh
+sed -i '$i--HiddenServiceDir ${rd}/hidden-service \\' ${bd}/tor/tor-hidden.sh
+sed -i '$i--HiddenServicePort 8080 \\' ${bd}/tor/tor-hidden.sh
 
 # Preparing daemon scripts
 sed -i '2i# Runs tor as daemon' ${bd}/tor/tord.sh
-sed -i '$i--runasdaemon 1 \' ${bd}/tor/tord.sh
+sed -i '$i--runasdaemon 1 \\' ${bd}/tor/tord.sh
 sed -i '2i# Runs tor as daemon' ${bd}/tor/tord-hidden.sh
 sed -i '3i# Starts a hidden service' ${bd}/tor/tord-hidden.sh
-sed -i '$i--runasdaemon 1 \' ${bd}/tor/tord-hidden.sh
-sed -i '$i--HiddenServiceDir ${rd}/hidden-service \' ${bd}/tor/tord-hidden.sh
-sed -i '$i--HiddenServicePort 8080 \' ${bd}/tor/tord-hidden.sh
+sed -i '$i--runasdaemon 1 \\' ${bd}/tor/tord-hidden.sh
+sed -i '$i--HiddenServiceDir ${rd}/hidden-service \\' ${bd}/tor/tord-hidden.sh
+sed -i '$i--HiddenServicePort 8080 \\' ${bd}/tor/tord-hidden.sh
 
 echo "[INFO] Packaging to ${rd}/tor.tar.xz"
 chmod +x ${bd}/tor/tor.sh ${bd}/tor/tor*.sh
