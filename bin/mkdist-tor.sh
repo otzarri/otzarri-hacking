@@ -50,7 +50,7 @@ sed -i '$i--HiddenServicePort 8080' ${bd}/tor/tor-hidden.sh
 
 # Preparing daemon scripts
 sed -i '2i# Runs tor as daemon' ${bd}/tor/tord.sh
-sed -i '--runasdaemon 1' ${bd}/tor/tord.sh
+sed -i '$i--runasdaemon 1' ${bd}/tor/tord.sh
 sed -i '2i# Runs tor as daemon' ${bd}/tor/tord-hidden.sh
 sed -i '3i# Starts a hidden service' ${bd}/tor/tord-hidden.sh
 sed -i '$i--runasdaemon 1 \' ${bd}/tor/tord-hidden.sh
