@@ -34,6 +34,7 @@ ${rd}/tor \
 --DataDirectory ${tor_data} \
 --GeoIPFile ${tor_data}/geoip \
 --GeoIPv6File ${tor_data}/geoip6 \
+--SocksPort 9050
 EOF
 
 cp ${bd}/tor/tor.sh ${bd}/tor/tord.sh
@@ -44,21 +45,17 @@ cp ${bd}/tor/tor.sh ${bd}/tor/tord-hidden.sh
 sed -i '2i# Runs tor and attaches to the ouput' ${bd}/tor/tor.sh
 sed -i '2i# Runs tor and attaches to the ouput' ${bd}/tor/tor-hidden.sh
 sed -i '3i# Starts a hidden service' ${bd}/tor/tor-hidden.sh
-echo '--HiddenServiceDir ${rd}/hidden-service \' >> ${bd}/tor/tor-hidden.sh
-echo '--HiddenServicePort 8080 \' >> ${bd}/tor/tor-hidden.sh
-echo "--SocksPort 9050" >> ${bd}/tor/tor.sh
-echo "--SocksPort 9050" >> ${bd}/tor/tor-hidden.sh
+sed -i '$i--HiddenServiceDir ${rd}/hidden-service \' ${bd}/tor/tor-hidden.sh
+sed -i '$i--HiddenServicePort 8080' ${bd}/tor/tor-hidden.sh
 
 # Preparing daemon scripts
 sed -i '2i# Runs tor as daemon' ${bd}/tor/tord.sh
+sed -i '--runasdaemon 1' ${bd}/tor/tord.sh
 sed -i '2i# Runs tor as daemon' ${bd}/tor/tord-hidden.sh
 sed -i '3i# Starts a hidden service' ${bd}/tor/tord-hidden.sh
-echo '--HiddenServiceDir ${rd}/hidden-service \' >> ${bd}/tor/tord-hidden.sh
-echo '--HiddenServicePort 8080 \' >> ${bd}/tor/tord-hidden.sh
-echo '--runasdaemon 1 \' >> ${bd}/tor/tord.sh
-echo '--runasdaemon 1 \' >> ${bd}/tor/tord-hidden.sh
-echo '--SocksPort 9050 > /dev/null 2>&1' >> ${bd}/tor/tord.sh
-echo '--SocksPort 9050 > /dev/null 2>&1' >> ${bd}/tor/tord-hidden.sh
+sed -i '$i--runasdaemon 1 \' ${bd}/tor/tord-hidden.sh
+sed -i '$i--HiddenServiceDir ${rd}/hidden-service \' ${bd}/tor/tord-hidden.sh
+sed -i '$i--HiddenServicePort 8080' ${bd}/tor/tord-hidden.sh
 
 echo "[INFO] Packaging to ${rd}/tor.tar.xz"
 chmod +x ${bd}/tor/tor.sh ${bd}/tor/tor*.sh
